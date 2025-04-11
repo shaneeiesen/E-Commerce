@@ -45,27 +45,29 @@ button:hover {
 }
 
 .btn-primary {
-  background: var(--primary100);
-  color: var(--gray50);
+  /* background: var(--primary100); */
+  color: var(--black);
+  border: 1px solid var(--gray100);
 }
 .btn-primary:hover {
-  background: var(--primary150);
+  background: var(--green150);
   color: var(--white);
 }
 
 .btn-secondary {
-  background: var(--gray200);
+  background: var(--green150);
   color: var(--gray50);
 }
 .btn-secondary:hover {
-  background: var(--black);
+  background: var(--gray100);
   color: var(--white);
 }
 
 /* NAVBAR ****************************/
 nav {
   height: 4rem;
-  background: var(--primary100);
+  background: var(--white);
+  /* background: var(--primary100); */
   color: var(--gray50);
   padding: 0 var(--space-md);
   display: flex;
@@ -75,11 +77,30 @@ nav {
   top: 0;
   left: 0;
   z-index: 4;
+  box-shadow: -1px 4px 13px -2px rgba(0, 0, 0, 0.75);
 }
 
 .logo {
   font-weight: bold;
   font-size: 2rem;
+ justify-content: center;
+  margin-top: .1rem;
+ display: flex;
+ gap: .5rem;
+  h1{
+    font-family: "Italianno", cursive;
+    font-size: 40px;
+    color: var(--green100);
+    justify-content: center;
+    font-weight: bold;
+  }
+}
+
+nav .logo img{
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+
 }
 
 nav .right {
@@ -87,6 +108,7 @@ nav .right {
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
+  color: var(--black);
 }
 
 nav .right .cartCount {
@@ -114,14 +136,28 @@ nav .right a:hover {
 }
 
 nav .right i {
+  color: var(--green150);
   font-size: 1.5rem;
   cursor: pointer;
   transition: var(--transition-sm);
 }
 
 nav .right i:hover {
-  color: var(--white);
+  color: var(--green100);
   font-size: 1.8rem;
+}
+
+nav .right #login{
+  background-color:rgb(93, 201, 93);
+  padding: .5rem;
+  border-radius: 50px 50px;
+}
+
+nav .right #register{
+
+background-color: var(--green100);
+padding: .5rem;
+border-radius: 50px 50px;
 }
 
 /* MAIN ****************************/
@@ -152,6 +188,8 @@ main {
   height: 65%;
   width: 100%;
   object-fit: cover;
+  cursor: pointer;
+  transition: var(--transition-sm);
 }
 
 .product .details {
@@ -197,7 +235,7 @@ main {
   top: 0;
   left: 0;
   z-index: 2;
-  background: var(--green100);
+  background: var(--red);
   color: var(--gray50);
   padding: var(--space-xm);
   border-radius: var(--space-xm) 0 var(--space-xm) 0;
@@ -216,4 +254,125 @@ dialog {
 
 ::backdrop {
   background-color: rgba(57, 57, 57, 0.629);
+}
+
+
+.dec-img{
+  float: left;
+  cursor: pointer;
+  transition: var(--transition-lg);
+}
+
+.dec-btn{
+  border: 1px solid var(--gray100);
+  width: 20%;
+  height: 10%;
+  top:0.4rem;
+}
+
+.hero-section{
+
+  height: 20vh; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  margin-top: 120px;
+}
+
+.container {
+width: 210px;
+height: 140px;
+position: relative;
+-webkit-perspective: 1000px;
+perspective: 1000px; 
+}
+
+#carousel {
+width: 100%;
+height: 100%;
+position: absolute;
+transform-style: preserve-3d;
+transform: rotateY(0deg); 
+transition: transform 1s ease; 
+}
+
+#carousel figure {
+display: block;
+position: absolute;
+width: 186px;
+height: 116px;
+left: 10px;
+top: 10px;
+
+background-color: lightgray;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 24px;
+color: black;
+font-weight: bold;
+}
+
+#carousel figure img {
+width: 100%; 
+height: 150px; 
+object-fit: cover;
+}
+
+#carousel figure:nth-child(1) { transform: rotateY(  0deg ) translateZ( 288px ); }
+#carousel figure:nth-child(2) { transform: rotateY( 40deg ) translateZ( 288px ); }
+#carousel figure:nth-child(3) { transform: rotateY( 80deg ) translateZ( 288px ); }
+#carousel figure:nth-child(4) { transform: rotateY(120deg ) translateZ( 288px ); }
+#carousel figure:nth-child(5) { transform: rotateY(160deg ) translateZ( 288px ); }
+#carousel figure:nth-child(6) { transform: rotateY(200deg ) translateZ( 288px ); }
+#carousel figure:nth-child(7) { transform: rotateY(240deg ) translateZ( 288px ); }
+#carousel figure:nth-child(8) { transform: rotateY(280deg ) translateZ( 288px ); }
+#carousel figure:nth-child(9) { transform: rotateY(320deg ) translateZ( 288px ); }
+
+
+footer {
+  background-color: var(--green150);
+  /* background-color: lightslategray; */
+  color: white;
+  padding: 30px 0;
+  text-align: center;
+}
+
+footer .footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+footer .footer-links div {
+  font-size: 16px;
+}
+
+footer hr {
+  border: 0;
+  border-top: 1px solid #fff;
+  margin: 20px auto;
+  width: 50%;
+}
+
+footer .icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+footer .icons div i {
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+footer .icons div i:hover {
+  color: #3498db;
+}
+
+footer p {
+  font-size: 14px;
+  margin-top: 10px;
 }
