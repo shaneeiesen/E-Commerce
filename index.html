@@ -96,8 +96,8 @@
 
 </div>
 
-    <main>
-        <div class="product">
+    <main id="product-container">
+        <!-- <div class="product">
             <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSK7NoX3sC6r62HzmgEY8NcrdeFfC86c5GtQMouSt6VS1E0MFjGksEQtBLjlfMdn3TI3gz9llNTDwJkI_4UBb49iQuD3R9lgqlm5mReobIKTN-Gmg_LYC2d&usqp=CAE"
                 alt="">
 
@@ -352,54 +352,50 @@
                     <button class="btn-primary">Add to Cart</button>
                 </div>
             </div>
-        </div>
+        </div> -->
     </main>
 
 
-    <dialog>
-        
+<dialog id="viewProductDialog">
+
+    <div class="viewProductDiv">
+
         <div class="dec-img">
-            <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSK7NoX3sC6r62HzmgEY8NcrdeFfC86c5GtQMouSt6VS1E0MFjGksEQtBLjlfMdn3TI3gz9llNTDwJkI_4UBb49iQuD3R9lgqlm5mReobIKTN-Gmg_LYC2d&usqp=CAE"
+            <img src="https://cdn.dummyjson.com/products/images/groceries/Apple/1.png"
                 alt="">
         </div>
-        <div class="details-cart" style="padding-left: 2rem;">
-            <h1>Pick & Mix Orange Melon</h1>
-            <br/>
-            <p>
+        <div class="details-cart" >
+                <h1>APPLE</h1>
 
-                <h4>Description</h4>
-                <br/>
-                Note: Promotions in store and online may vary
-                <br/>
-                Create your own salad with our pick and mix sweet orange melon.
-                <br/>
-                <br/>
+                <div class="productDesc">
+                    <h2>THIS PRODUCT</h2>
+                    <div>Fresh and crisp apples, perfect for snacking or incorporating into various recipes.</div>
+                    <div>8 Kg</div>
+                </div>
 
-                THIS PRODUCT
-                <br/>
-                <br/>
-                250 g
-                Ready to eat
-                Keep refrigerated
-                <br/>
-                <br/>
-
-                OUR DIFFERENCE
-                <br/>
-                <br/>
-                It's fresher for longer: Our unbroken cold chain means your fruit stay fresh for longer, even after you take them home
+               
+                <div>
+                <h2>DISCLAIMER</h2>
+                <p>It's fresher for longer: Our unbroken cold chain means your fruit stay fresh for longer, even after you take them home
                 Only the best is good enough: Expect only the best varieties grown in superb locations to deliver the best quality and flavour
                 Our farmers are quality: Before we pick our fruit, we pick our farmers. They're as obsessed with quality as we are
                 We're farming with tomorrow in mind: We promote healthy soil and use water responsibly - so it's better for you and the planet.
-                <br/>
-                <br/>
-                Product code:
-                6009184997575
-            </p>
+                 </p>
+                 </div>
+                <div>
+                    Product code:
+                    "QTROUV79"
+                </div>
+               
+            
         </div>
 
-        <button class="dec-btn">Close</button>
-        </dialog>
+    </div>
+        <div>
+            <button class="dec-btn" id="btn-decclose">Close</button>
+        </div>
+        
+</dialog>
 
 
         <dialog id="cartDialog">
