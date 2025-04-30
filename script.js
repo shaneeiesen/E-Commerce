@@ -1793,6 +1793,17 @@ const favoriteBtns = document.querySelectorAll(".bi.bi-heart");
 const viewFavorite = document.querySelector("#favDialog");
 const closeFavorite = document.querySelector("#heartButton");
 
+//login and register
+
+const loginBtn = document.getElementById("login");
+const viewLogin = document.getElementById("loginDialog");
+const closeLogin = document.getElementById("closeLogin");
+
+
+const registerBtn = document.getElementById("signup");
+const viewRegister = document.getElementById("signupDialog");
+const closeRegister = document.getElementById("closeSignup");
+
 //Product container
 let container = document.getElementById('product-container');
 let groceries=[];
@@ -1951,6 +1962,25 @@ favoriteBtns.forEach((btn) => {
 
 closeFavorite.addEventListener("click", () => {
   viewFavorite.close();
+});
+
+//
+//
+loginBtn.addEventListener("click", () => {
+  viewLogin.showModal();
+});
+
+closeLogin.addEventListener("click", () => {
+  viewLogin.close();
+});
+
+
+registerBtn.addEventListener("click", () => {
+  viewRegister.showModal();
+});
+
+closeRegister.addEventListener("click", () => {
+  viewRegister.close();
 });
 
 let angle = 0; // Initial angle
