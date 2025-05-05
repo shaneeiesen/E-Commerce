@@ -155,6 +155,76 @@ function addToWishList(productId) {
   }
 }
 
+function addToWishListFn(productId) {
+  if (
+    typeof productId != "number" ||
+    productId < 0 
+  ) {
+    throw new Error("Invalid productId");
+  }
+
+  let product = null;
+
+  for (let i = 0; i < cart.length; i++) {
+    let p = cart[i].product;
+
+    if (p.id == productId) {
+      product = p;
+    }
+  }
+
+  if (product !== null) {
+    for (let x = 0; x < wishList.length; x++) {
+      if (wishList[x].product.id == productId) {
+        throw new Error("Item Already added on the wishlist");
+
+        return;
+      }
+    }
+
+    let wishListProd = { id: wishListId++, count: 1, product };
+    wishList.push(wishListProd);
+  }
+}
+
+function removeByWishListIdFn(wishlist_id) {
+  if (typeof wishlist_id != "number" || wishlist_id < 0) {
+    throw new Error("Invalid cart_id");
+  }
+
+  //const index = cart.findIndex((item) => item.cartId == cart_id);
+  let index;
+  for (let i = 0; i < wishList.length; i++) {
+    if (wishList[i].id == wishlist_id) {
+      index = i;
+      break;
+    }
+  }
+
+  if (index !== -1) {
+    wishList.splice(index, 1);
+  }
+}
+
+function removeByProductIdWishlistFn(product_id) {
+  if (typeof product_id != "number" || product_id < 0) {
+    throw new Error("Invalid cart_id");
+  }
+
+  let index;
+  for (let i = 0; i < wishList.length; i++) {
+    if (wishList[i].id == product_id) {
+      index = i;
+      break;
+    }
+  }
+
+  if (index !== -1) {
+    wishList.splice(index, 1);
+  }
+}
+
+
 export {
   cart,
   addToCartFn,
@@ -166,4 +236,7 @@ export {
   calculateTotalFn,
   increaseProductCounterFn,
   wishList,
+  addToWishListFn,
+  removeByWishListIdFn,
+  removeByProductIdWishlistFn,
 };

@@ -7,6 +7,9 @@ import {
   deleteFromCartFn,
   increaseProductCounterFn,
   wishList,
+  addToWishListFn,
+  removeByWishListIdFn,
+  removeByProductIdWishlistFn
 } from "./js/script_function.js";
 console.log(products1);
 
@@ -145,7 +148,7 @@ function AddToCartRender() {
                 </div>
 
                 <div class="btn-cartDialog">
-                    <button class="btn-saveitem" type="button"> Wishlist</button>
+                    <button class="btn-saveitem" type="button" data-id="${cartProduct.id}"> Wishlist</button>
                     <button class="btn-removeitem" type="button" data-id="${cartItem.id}">Remove</button>
                 </div>
             </div>
@@ -214,6 +217,126 @@ function AddToCartRender() {
       AddToCartRender();
     });
   });
+
+  const addToWishListBtn = document.querySelectorAll(".btn-saveitem");
+
+          addToWishListBtn.forEach((btn) => {
+
+          btn.addEventListener("click", (event) => {
+
+            try {
+
+              const productId = event.currentTarget.dataset.id;
+              const prodId= parseInt(productId);
+              console.log("Product ID added to wishlist:", productId);
+
+              addToWishListFn(prodId);
+              AddToWishListRender();
+              console.log(wishList);
+
+            } catch (error) {
+              alert(error.message);
+            }
+
+
+
+          });
+
+        });
+}
+
+
+let wishListContainer = document.getElementById("favDialog");
+function AddToWishListRender(){
+
+  wishListContainer.innerHTML=`
+  <button id="heartButton">Close</button>
+        <h1>WishList</h1>`;
+
+        for (let i = 0; i < wishList.length; i++) {
+          const wishListItem = wishList[i];
+          const wishListProduct = wishListItem.product;
+
+          wishListContainer.innerHTML+=`
+        <div class="fav">
+
+      <div>
+        <img
+          src="${wishListProduct.thumbnail}"
+          alt="image"
+        />
+      </div>
+
+      <div class="fav-description">
+        <div>
+          <div class="title">${wishListProduct.title}</div>
+          <div class="price">${wishListProduct.price}</div>
+        </div>
+
+        <div class="btn-favDialog">
+          <button class="btn-secondary" type="button" data-id="${wishListProduct.id}">Add to Cart</button>
+          <button class="btn-primary" type="button" data-id="${wishListItem.id}">Remove</button>
+        </div>
+      </div>
+    </div>`;
+        
+        }
+
+
+
+  const closeButton = document.getElementById("heartButton");
+  if (closeButton) {
+    closeButton.addEventListener("click", () => {
+      wishListContainer.close();
+    });
+  }
+
+  const removeItemBtn = document.querySelectorAll(".btn-primary");
+
+  removeItemBtn.forEach((btn) => {
+
+    btn.addEventListener("click", (event) => {
+
+      try {
+        
+        const cartId = event.currentTarget.dataset.id;
+      const cId= parseInt(cartId);
+
+      console.log("Cart ID removed from cart:", cartId);
+      removeByWishListIdFn(cId);
+
+        AddToWishListRender()
+      } catch (error) {
+        alert(error.message)
+      }
+      
+      
+    });
+  });
+
+  const addToCartButtons = document.querySelectorAll(".btn-secondary");
+
+  addToCartButtons.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+
+      try {
+
+        const productId = event.currentTarget.dataset.id;
+        const cId= parseInt(productId);
+        console.log("Product ID added to cart from wishlist:", productId);
+          addToCartFn(cId);
+          removeByProductIdWishlistFn(cId);
+          AddToCartRender();
+        
+      } catch (error) {
+        alert(error.message)
+      }
+   
+    });
+    
+  }); 
+
+
 }
 
 ////////////////
