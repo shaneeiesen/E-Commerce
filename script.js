@@ -1,7 +1,23 @@
+import {
+  products1,
+  addToCartFn,
+  cart,
+  removeByCartIdFn,
+  calculateTotalFn,
+  deleteFromCartFn,
+  increaseProductCounterFn,
+  wishList,
+} from "./js/script_function.js";
+console.log(products1);
 
 const viewProductModalBtn = document.querySelectorAll(".btn-secondary");
 const viewProductDialog = document.querySelector("dialog");
 const closeProductDialog = document.querySelector("dialog button");
+
+//
+const viewProductModalBtn1 = document.querySelectorAll(".btn-secondary");
+let viewProductDialog1 = document.querySelector("#viewProductDialog");
+let closeProductDialog1 = document.querySelector("#btn-decclose");
 
 //
 
@@ -25,29 +41,13 @@ const closeRegister = document.getElementById("closeSignup");
 
 //Product container
 
-//Get products from server
-
- //let products=[];
-
-async function fetchProducts() {
-  const setProducts = await fetch("https://dummyjson.com/products ");
-  const data = await setProducts.json();
-   const { products } = data;
-   displayProducts(products)
-  // products.push(data);
-}
-fetchProducts();
-
 let container = document.getElementById("product-container");
 
+function displayProducts(products2) {
+  for (let i = 0; i < products2.length; i++) {
+    let product = products2[i];
 
-function displayProducts(products){
-
-  for (let i = 0; i < products.length; i++) {
-
-    let product = products[i];
-  
-        let productHtml = `
+    let productHtml = `
           
           <div class="product">
               <img src="${product.thumbnail}"
@@ -61,33 +61,160 @@ function displayProducts(products){
                   <div class="price">${product.price}</div>
                   <div class="btn-group">
                       <button class="btn-secondary btnViewProduct">View</button>
-                      <button class="btn-primary">Add to Cart</button>
+                      <button class="btn-primary" data-id="${product.id}">Add to Cart</button>
                   </div>
               </div>
           </div>`;
-        container.innerHTML += productHtml;
-      }
-      
-      const viewButtons = document.querySelectorAll(".btnViewProduct");
-      viewButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const viewProductDialog = document.querySelector("#viewProductDialog");
-          viewProductDialog.showModal();
-        });
-      });
+    container.innerHTML += productHtml;
+  }
 
+  const viewButtons = document.querySelectorAll(".btnViewProduct");
+  viewButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const viewProductDialog = document.querySelector("#viewProductDialog");
+      viewProductDialog.showModal();
+    });
+  });
+
+  const addToCartButtons = document.querySelectorAll(".btn-primary");
+
+  addToCartButtons.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      const productId = event.currentTarget.dataset.id;
+      console.log("Product ID added to cart:", productId);
+      const product = products2.find((p) => p.id == productId);
+
+      if (product) {
+        addToCartFn(product.id);
+
+        AddToCartRender();
+      }
+    });
+  });
+}
+displayProducts(products1);
+
+let cartContainer = document.getElementById("cartDialog");
+let total = 0;
+//Adding to cart HTML
+function AddToCartRender() {
+  total = 0;
+  cartContainer.innerHTML = `
+  <button id="cartButton">Close</button>
+        <h1>Cart</h1>`;
+
+  for (let i = 0; i < cart.length; i++) {
+    const cartItem = cart[i];
+    const cartProduct = cartItem.product;
+
+    const cartItemsTotal = calculateTotalFn(cartProduct, cartItem.count);
+    total += cartItemsTotal;
+
+    cartContainer.innerHTML += `
+    
+        <div class="cart">
+
+            <div class="cart-img">
+              <img
+                src="${cartProduct.thumbnail}"
+                alt="image"
+              />
+            </div>
+      
+            <div class="cart-description">
+              
+                <div class="title"><h1>${cartProduct.title}</h1></div>
+                <div class="price">R${cartProduct.price}</div>
+
+                <div class="quatity-div">
+
+                 
+                   <i class="bi bi-dash-circle-fill" data-id="${cartItem.id}"></i>
+                 
+                   
+                    <div>${cartItem.count}</div>
+
+                    
+                    <i class="bi bi-plus-circle-fill" data-id="${cartItem.id}"></i>
+                   
+                   
+                 
+                    
+                </div>
+
+                <div class="btn-cartDialog">
+                    <button class="btn-saveitem" type="button"> Wishlist</button>
+                    <button class="btn-removeitem" type="button" data-id="${cartItem.id}">Remove</button>
+                </div>
+            </div>
+      
+             
+        </div>
+ 
+        </div>
+     `;
+  }
+  cartContainer.innerHTML += `
+    <div class="btn-cartcheckout">
+      <div class="total-price">Total Price : R ${total.toFixed(2)}</div>
+      <button class="btn-checkout">Checkout</button>
+    </div>
+  `;
+
+  const closeButton = document.getElementById("cartButton");
+  if (closeButton) {
+    closeButton.addEventListener("click", () => {
+      cartContainer.close();
+    });
+  }
+
+  const removeItemBtn = document.querySelectorAll(".btn-removeitem");
+
+  removeItemBtn.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      const cartId = event.currentTarget.dataset.id;
+      const cId = parseInt(cartId);
+
+      console.log("Cart ID removed from cart:", cartId);
+      removeByCartIdFn(cId);
+      AddToCartRender();
+    });
+  });
+
+  const increaseCountBtn = document.querySelectorAll(".bi.bi-plus-circle-fill");
+
+  increaseCountBtn.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      const productId = event.currentTarget.dataset.id;
+
+      const prodId = parseInt(productId);
+
+      console.log("Product ID :", productId);
+      increaseProductCounterFn(prodId);
+      AddToCartRender();
+    });
+  });
+
+  const decreaseCountBtn = document.querySelectorAll(".bi.bi-dash-circle-fill");
+
+  decreaseCountBtn.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      const productId = event.currentTarget.dataset.id;
+
+      const prodId = parseInt(productId);
+      for (let i = 0; i < cart.length; i++) {
+        const cartItem = cart[i];
+        console.log(cartItem);
+      }
+
+      console.log("Product ID :", productId);
+      deleteFromCartFn(prodId);
+      AddToCartRender();
+    });
+  });
 }
 
-
-
-
-  
-
-
 ////////////////
-const viewProductModalBtn1 = document.querySelectorAll(".btn-secondary");
-let viewProductDialog1 = document.querySelector("#viewProductDialog");
-let closeProductDialog1 = document.querySelector("#btn-decclose");
 
 // console.log({ groceries });
 /////////
