@@ -14,7 +14,7 @@ const viewProductModalBtn = document.querySelectorAll(".btn-secondary");
 const viewProductDialog = document.querySelector("dialog");
 const closeProductDialog = document.querySelector("dialog button");
 
-//
+// Products
 const viewProductModalBtn1 = document.querySelectorAll(".btn-secondary");
 let viewProductDialog1 = document.querySelector("#viewProductDialog");
 let closeProductDialog1 = document.querySelector("#btn-decclose");
