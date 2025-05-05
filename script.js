@@ -43,6 +43,8 @@ const closeRegister = document.getElementById("closeSignup");
 
 let container = document.getElementById("product-container");
 
+
+//displayProducts
 function displayProducts(products2) {
   for (let i = 0; i < products2.length; i++) {
     let product = products2[i];
