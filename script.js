@@ -9,15 +9,34 @@ import {
   wishList,
   addToWishListFn,
   removeByWishListIdFn,
-  removeByProductIdWishlistFn
+  removeByProductIdWishlistFn,
+  users,
+  registerPeople,
+  validateName,
+  validateEmail,
+  validatePassword,
+  validateConfirmPassword,
+  loginUser,
 } from "./js/script_function.js";
 console.log(products1);
+
+// Get dialog and its elements
+const dialog = document.getElementById("viewProductDialog");
+const modal = document.querySelector("#viewProductDialog");
+const closeModalBtn = document.querySelector("#btn-decclose");
+const modalImage = document.getElementById("modalImage");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const modalPrice = document.getElementById("modalPrice");
+const modalRating = document.getElementById("modalRating");
+
+//
 
 const viewProductModalBtn = document.querySelectorAll(".btn-secondary");
 const viewProductDialog = document.querySelector("dialog");
 const closeProductDialog = document.querySelector("dialog button");
 
-// Products
+//
 const viewProductModalBtn1 = document.querySelectorAll(".btn-secondary");
 let viewProductDialog1 = document.querySelector("#viewProductDialog");
 let closeProductDialog1 = document.querySelector("#btn-decclose");
@@ -42,15 +61,86 @@ const registerBtn = document.getElementById("signup");
 const viewRegister = document.getElementById("signupDialog");
 const closeRegister = document.getElementById("closeSignup");
 
+// Slide buttons
+let currentSlideIndex = 0;
+let currentImageList = [];
+
+const thumbnailScroll = document.querySelector(".thumbnail-scroll");
+const prevSlideBtn = document.getElementById("prevSlide");
+const nextSlideBtn = document.getElementById("nextSlide");
+
+//login
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('signin-form');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+ 
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
+    try {
+      const loggedInUser = loginUser(email, password);
+      alert(`You have logged in successfully as ${loggedInUser.name}!`);
+
+    } catch (err) {
+      
+      alert(err.message);
+    }
+  
+  });
+});
+//
+
+//Signup
+document.getElementById("signup-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById("fullname").value.trim();
+  const email = document
+    .getElementById("signup-email")
+    .value.trim()
+    .toLowerCase();
+  const password = document.getElementById("signup-password").value;
+  const confirmPassword = document.getElementById("confirm-password").value;
+
+  try {
+    // Validate inputs
+    validateName(name);
+    validateEmail(email);
+    validatePassword(password);
+    validateConfirmPassword(password, confirmPassword);
+
+    registerPeople(name, email, password, confirmPassword);
+
+    let existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    const newUser = {
+      name: name,
+      email: email,
+      password: password,
+    };
+
+    existingUsers.push(newUser);
+
+    localStorage.setItem("users", JSON.stringify(existingUsers));
+    document.getElementById("signup-form").reset();
+    alert("Registration successful!");
+  } catch (err) {
+    alert(err.message);
+  }
+});
+
 //Product container
 
 let container = document.getElementById("product-container");
 
-
-//displayProducts
-function displayProducts(products2) {
-  for (let i = 0; i < products2.length; i++) {
-    let product = products2[i];
+function displayProducts(products) {
+  for (let i = 0; i < products.length; i++) {
+    let product = products[i];
 
     let productHtml = `
           
@@ -63,9 +153,9 @@ function displayProducts(products2) {
               <div class="details">
                   <div class="reviews"><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> ${product.rating}</div>
                   <div class="title">${product.title}</div>
-                  <div class="price">${product.price}</div>
+                  <div class="price">$ ${product.price}</div>
                   <div class="btn-group">
-                      <button class="btn-secondary btnViewProduct">View</button>
+                      <button class="btn-secondary btnViewProduct" data-index="${i}">View</button>
                       <button class="btn-primary" data-id="${product.id}">Add to Cart</button>
                   </div>
               </div>
@@ -87,7 +177,7 @@ function displayProducts(products2) {
     btn.addEventListener("click", (event) => {
       const productId = event.currentTarget.dataset.id;
       console.log("Product ID added to cart:", productId);
-      const product = products2.find((p) => p.id == productId);
+      const product = products.find((p) => p.id == productId);
 
       if (product) {
         addToCartFn(product.id);
@@ -95,6 +185,94 @@ function displayProducts(products2) {
         AddToCartRender();
       }
     });
+  });
+
+  //const viewButtons = document.querySelectorAll(".btnViewProduct");
+
+  function showSlide(index) {
+    currentSlideIndex =
+      (index + currentImageList.length) % currentImageList.length;
+    modalImage.src = currentImageList[currentSlideIndex];
+
+    // Highlight the selected thumbnail
+    document.querySelectorAll(".thumbnail-scroll img").forEach((img, i) => {
+      img.classList.toggle("active", i === currentSlideIndex);
+    });
+  }
+  prevSlideBtn.addEventListener("click", () =>
+    showSlide(currentSlideIndex - 1)
+  );
+  nextSlideBtn.addEventListener("click", () =>
+    showSlide(currentSlideIndex + 1)
+  );
+  viewButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const index = e.target.dataset.index;
+      const product = products[index];
+
+      currentImageList =
+        product.images && product.images.length
+          ? product.images
+          : [product.thumbnail];
+      currentSlideIndex = 0;
+
+      // Add thumbnails dynamically
+      thumbnailScroll.innerHTML = "";
+      currentImageList.forEach((src, i) => {
+        const thumb = document.createElement("img");
+        thumb.src = src;
+        thumb.addEventListener("click", () => showSlide(i));
+        thumbnailScroll.appendChild(thumb);
+      });
+
+      // Set up slideshow
+      // currentImageList = product.images ?? [product.images]; // fallback
+      // currentSlideIndex = 0;
+      showSlide(currentSlideIndex);
+
+      // Fill in modal with selected product details
+
+      showSlide(currentSlideIndex);
+      modalTitle.textContent = product.title;
+      modalDescription.textContent = product.description;
+      modalPrice.textContent = product.price;
+      modalRating.textContent = product.rating;
+      modalReviews.textContent = product.reviews;
+      modalDiscount.textContent = `${product.discountPercentage}%`;
+      modalQuantity.textContent = product.stock;
+      modalCategory.textContent = product.category;
+      modalBrand.textContent = product.brand;
+      modalWarranty.textContent = product.warrantyInformation;
+      modalShipping.textContent = product.shippingInformation;
+      modalReturn.textContent = product.returnPolicy;
+      modalAvailability.textContent = product.availabilityStatus;
+
+      modalReviews.innerHTML = ""; // Clear any previous reviews
+
+      product.reviews.forEach((review) => {
+        const reviewHTML = `
+                    <div class="single-review" style="margin-bottom: 1em;">
+                      <p><strong>${review.reviewerName}</strong> (${new Date(
+          review.date
+        ).toLocaleDateString()})</p>
+                      <p>Rating: ${review.rating} ⭐</p>
+                      <p><em>${review.comment}</em></p>
+                    </div>
+                  `;
+        modalReviews.innerHTML += reviewHTML;
+      });
+
+      modal.showModal();
+    });
+  });
+
+  // add action for the slide buttons
+  prevSlideBtn.addEventListener("click", () => {
+    showSlide(currentSlideIndex - 1);
+  });
+
+  nextSlideBtn.addEventListener("click", () => {
+    showSlide(currentSlideIndex + 1);
   });
 }
 displayProducts(products1);
@@ -104,6 +282,7 @@ let total = 0;
 //Adding to cart HTML
 function AddToCartRender() {
   total = 0;
+  let totalItemCount = 0;
   cartContainer.innerHTML = `
   <button id="cartButton">Close</button>
         <h1>Cart</h1>`;
@@ -111,6 +290,7 @@ function AddToCartRender() {
   for (let i = 0; i < cart.length; i++) {
     const cartItem = cart[i];
     const cartProduct = cartItem.product;
+    totalItemCount += cartItem.count;
 
     const cartItemsTotal = calculateTotalFn(cartProduct, cartItem.count);
     total += cartItemsTotal;
@@ -159,13 +339,22 @@ function AddToCartRender() {
         </div>
      `;
   }
+
   cartContainer.innerHTML += `
     <div class="btn-cartcheckout">
-      <div class="total-price">Total Price : R ${total.toFixed(2)}</div>
+      <div class="total-price">Total Price : $ ${total.toFixed(2)}</div>
       <button class="btn-checkout">Checkout</button>
-    </div>
+    </div> 
   `;
 
+  // Update cart count in the red dot
+  const cartCountSpan = document.querySelector(".cartCount span");
+  if (totalItemCount > 0) {
+    cartCountSpan.innerText = totalItemCount;
+    cartCountSpan.style.display = "inline";
+  } else {
+    cartCountSpan.style.display = "none";
+  }
   const closeButton = document.getElementById("cartButton");
   if (closeButton) {
     closeButton.addEventListener("click", () => {
@@ -220,44 +409,35 @@ function AddToCartRender() {
 
   const addToWishListBtn = document.querySelectorAll(".btn-saveitem");
 
-          addToWishListBtn.forEach((btn) => {
+  addToWishListBtn.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      try {
+        const productId = event.currentTarget.dataset.id;
+        const prodId = parseInt(productId);
+        console.log("Product ID added to wishlist:", productId);
 
-          btn.addEventListener("click", (event) => {
-
-            try {
-
-              const productId = event.currentTarget.dataset.id;
-              const prodId= parseInt(productId);
-              console.log("Product ID added to wishlist:", productId);
-
-              addToWishListFn(prodId);
-              AddToWishListRender();
-              console.log(wishList);
-
-            } catch (error) {
-              alert(error.message);
-            }
-
-
-
-          });
-
-        });
+        addToWishListFn(prodId);
+        AddToWishListRender();
+        console.log(wishList);
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+  });
 }
 
-
 let wishListContainer = document.getElementById("favDialog");
-function AddToWishListRender(){
 
-  wishListContainer.innerHTML=`
+function AddToWishListRender() {
+  wishListContainer.innerHTML = `
   <button id="heartButton">Close</button>
         <h1>WishList</h1>`;
 
-        for (let i = 0; i < wishList.length; i++) {
-          const wishListItem = wishList[i];
-          const wishListProduct = wishListItem.product;
+  for (let i = 0; i < wishList.length; i++) {
+    const wishListItem = wishList[i];
+    const wishListProduct = wishListItem.product;
 
-          wishListContainer.innerHTML+=`
+    wishListContainer.innerHTML += `
         <div class="fav">
 
       <div>
@@ -279,11 +459,18 @@ function AddToWishListRender(){
         </div>
       </div>
     </div>`;
-        
-        }
+  }
 
-
-
+  // Update wishlist count
+  const wishListCountSpan = document.querySelector(".favCount span");
+  if (wishListCountSpan) {
+    if (wishList.length > 0) {
+      wishListCountSpan.innerText = wishList.length;
+      wishListCountSpan.style.display = "inline";
+    } else {
+      wishListCountSpan.style.display = "none";
+    }
+  }
   const closeButton = document.getElementById("heartButton");
   if (closeButton) {
     closeButton.addEventListener("click", () => {
@@ -294,23 +481,18 @@ function AddToWishListRender(){
   const removeItemBtn = document.querySelectorAll(".btn-primary");
 
   removeItemBtn.forEach((btn) => {
-
     btn.addEventListener("click", (event) => {
-
       try {
-        
         const cartId = event.currentTarget.dataset.id;
-      const cId= parseInt(cartId);
+        const cId = parseInt(cartId);
 
-      console.log("Cart ID removed from cart:", cartId);
-      removeByWishListIdFn(cId);
+        console.log("Cart ID removed from cart:", cartId);
+        removeByWishListIdFn(cId);
 
-        AddToWishListRender()
+        AddToWishListRender();
       } catch (error) {
-        alert(error.message)
+        alert(error.message);
       }
-      
-      
     });
   });
 
@@ -318,25 +500,19 @@ function AddToWishListRender(){
 
   addToCartButtons.forEach((btn) => {
     btn.addEventListener("click", (event) => {
-
       try {
-
         const productId = event.currentTarget.dataset.id;
-        const cId= parseInt(productId);
+        const cId = parseInt(productId);
         console.log("Product ID added to cart from wishlist:", productId);
-          addToCartFn(cId);
-          removeByProductIdWishlistFn(cId);
-          AddToCartRender();
-        
+        addToCartFn(cId);
+
+        AddToCartRender();
+        AddToWishListRender();
       } catch (error) {
-        alert(error.message)
+        alert(error.message);
       }
-   
     });
-    
-  }); 
-
-
+  });
 }
 
 ////////////////
@@ -385,7 +561,6 @@ closeFavorite.addEventListener("click", () => {
 });
 
 //
-//
 loginBtn.addEventListener("click", () => {
   viewLogin.showModal();
 });
@@ -402,14 +577,8 @@ closeRegister.addEventListener("click", () => {
   viewRegister.close();
 });
 
-let angle = 0; // Initial angle
-const carousel = document.getElementById("carousel");
-const rotateSpeed = 3; // Speed of the rotation
+//new carousel
 
-function rotateCarousel() {
-  angle += rotateSpeed; // Increase the angle for the next rotation
-  carousel.style.transform = `rotateY(${angle}deg)`; // Apply the rotation
-}
 
-// Optionally, you can make the rotation continuous by using setInterval
-setInterval(rotateCarousel, 100); // Rotate the carousel every 100ms
+
+

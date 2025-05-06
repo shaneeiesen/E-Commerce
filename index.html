@@ -35,7 +35,8 @@
                 <i class="bi bi-search"></i>
             </div>
 
-            <div>
+            <div class="favCount">
+                <span>0</span>
                 <i class="bi bi-heart"></i>
             </div>
 
@@ -55,50 +56,10 @@
     </nav>
 
 <!-- CARA -->
-<div class="hero-section">
-    <section class="container">
-       <div id="carousel">
-           <figure>
-               <img src="https://i.pinimg.com/736x/99/f8/f0/99f8f070731b4525631bb49de3477c0f.jpg"  alt="  "/>
-           </figure>
-           <figure>
-               <img src="https://i.pinimg.com/736x/0a/59/82/0a598292a4ddd3b1d1390f85022bb16f.jpg"  alt="  "/>
-           </figure>
-           <figure>
-
-               <img src="https://i.pinimg.com/736x/e0/7c/bd/e07cbd6b38898fa355f3b71eb028f5bf.jpg"  alt="  "/>
-
-           </figure>
-           <figure>
-               <img src="https://i.pinimg.com/736x/24/f3/75/24f3752317a9267e0a68463649183358.jpg"  alt="  "/>
-
-           </figure>
-           <figure>
-
-               <img src="https://i.pinimg.com/736x/6e/c8/af/6ec8afaacf83689efc31bee23f1c57f4.jpg"  alt="  "/>
-
-           </figure>
-           <figure>
-               <img src="https://i.pinimg.com/736x/31/80/5f/31805f140989f905ec2c99c9290eab74.jpg"  alt="  "/>
-           </figure>
-
-           <figure>
-               <img src="https://i.pinimg.com/736x/b3/fd/b5/b3fdb57ca802fbd1a9060b6312c06baf.jpg"  alt="  "/>
-           </figure>
-
-           <figure>
-               <img src="https://i.pinimg.com/736x/cc/4f/72/cc4f72c1f4e8daf80dc8fc9da5baae73.jpg"  alt="  "/>
-           </figure>
-
-           <figure>
-               <img src="https://i.pinimg.com/736x/c0/67/03/c067036af81c21f97a64f16f5b4cc2e5.jpg"  alt="  "/>
-           </figure>
 
 
-       </div>
-   </section>
 
-</div>
+<!-- end -->
 
     <main id="product-container">
         <!-- <div class="product">
@@ -360,53 +321,69 @@
     </main>
 
 
-<dialog id="viewProductDialog">
+    <dialog id="viewProductDialog">
+        <button class="dec-btn" id="btn-decclose">Close</button>
 
-    <div class="viewProductDiv">
+        <div class="viewProductDiv">
 
-        <div class="dec-img">
-            <img src="https://cdn.dummyjson.com/products/images/groceries/Apple/1.png"
-                alt="">
-        </div>
-        <div class="details-cart" >
-                <h1>APPLE</h1>
+            <div class="gallery-container">
+                <div class="thumbnail-scroll">
+                    <!-- Thumbnails will be injected here dynamically -->
+                </div>
+
+                <div class="dec-img">
+                    <img id="modalImage" src="" alt="Product Image"
+                        style="width: 100%; max-height: 500px; object-fit: cover;">
+                    <div class="slideshow-controls">
+                        <button id="prevSlide">Previous image</button>
+                        <button id="nextSlide">Next image</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-cart">
+
+                <h1 id="modalTitle"></h1>
 
                 <div class="productDesc">
-                    <h2>THIS PRODUCT</h2>
-                    <div>Fresh and crisp apples, perfect for snacking or incorporating into various recipes.</div>
-                    <div>8 Kg</div>
+                    <p><strong>Category:</strong> <span id="modalCategory"></span></p>
+                    <p><strong>Brand:</strong> <span id="modalBrand"></span></p>
+                    <p><strong>Price:</strong> $<span id="modalPrice"></span></p>
+                    <p><strong>Discount:</strong> <span id="modalDiscount"></span></p>
+                </div>
+                <h2>About This Product</h2>
+                <div class="productDesc">
+
+                    <p id="modalDescription"></p>
+                    <p><strong>Availabity:</strong> <span id="modalAvailability"></span></p>
+                    <p><strong>Quantity:</strong> <span id="modalQuantity"></span></p>
+                    <p><strong>Rating:</strong> <span id="modalRating"></span></p>
+                    <p><strong>Warranty Info:</strong> <span id="modalWarranty"></span></p>
+                    <p><strong>Shipping Info:</strong> <span id="modalShipping"></span></p>
+                    <p><strong>Return Policy:</strong> <span id="modalReturn"></span></p>
+
                 </div>
 
-               
                 <div>
-                <h2>DISCLAIMER</h2>
-                <p>It's fresher for longer: Our unbroken cold chain means your fruit stay fresh for longer, even after you take them home
-                Only the best is good enough: Expect only the best varieties grown in superb locations to deliver the best quality and flavour
-                Our farmers are quality: Before we pick our fruit, we pick our farmers. They're as obsessed with quality as we are
-                We're farming with tomorrow in mind: We promote healthy soil and use water responsibly - so it's better for you and the planet.
-                 </p>
-                 </div>
-                <div>
-                    Product code:
-                    "QTROUV79"
+                    <strong>Reviews:</strong>
+                    <div id="modalReviews"></div>
                 </div>
-               
-            
+
+            </div>
+
+
         </div>
 
-    </div>
-        <div>
-            <button class="dec-btn" id="btn-decclose">Close</button>
-        </div>
-        
-</dialog>
+    </dialog>
 
 
 <dialog id="cartDialog">
+    
     <button id="cartButton">Close</button>
+        <h1>Cart</h1>
 
     
-        <h1>Cart</h1>
+        <!-- <h1>Cart</h1>
         <div class="cart">
 
             <div class="cart-img">
@@ -434,9 +411,9 @@
             </div>
       
              
-        </div>
+        </div> -->
 
-        <div class="cart">
+        <!-- <div class="cart">
 
             <div class="cart-img">
               <img
@@ -463,14 +440,14 @@
             </div>
       
              
-        </div>
+        </div> -->
       
-        <div class="btn-cartcheckout">
+        <!-- <div class="btn-cartcheckout">
               
               <div class="total-price">Total Price : R 35.99</div>
               <button class="btn-checkout">Checkout</button>
-            <!-- <div class="total-checkout"></div> -->
-        </div>
+            
+        </div> -->
                       
                     
 </dialog>
@@ -482,7 +459,7 @@
 
     <h1>Wishlist</h1>
 
-    <div class="fav">
+    <!-- <div class="fav">
 
       <div>
         <img
@@ -522,7 +499,7 @@
           <button class="btn-primary" type="button">Remove</button>
         </div>
       </div>
-    </div>
+    </div> -->
   </dialog>
 
 <!-- LOGIN DIALOG -->
@@ -531,28 +508,29 @@
     <h2>Login</h2>
     <h3>Welcome back!</h3>
     <p></p>
-    <form action="/submit-signup" method="post">
-      <div class="form-group">
-
-
-      <div class="form-group">
-        <label for="email"class="required">Email Address<i style="font-size:10px"class="fa">&#xf069;</i></label>
-        <input type="email" id="email" name="email" required>
-      </div>
-
-      <div class="form-group">
-        <label for="password"class="required">Password<i style="font-size:10px"class="fa">&#xf069;</i></label>
-        <input type="password" id="password" name="password" required>
-      </div>
-
-
-
-      <input type="submit" value="Login">
-
-      <p>Don't have an account? <a>Sign Up</a></p>
-      <p>Forgot your password? <a href="#">Reset Password</a></p>
-
-    </form>
+    <form id="signin-form">
+        <div class="form-group">
+          <label for="email" class="required">Email Address
+            <i style="font-size:10px" class="fa">&#xf069;</i>
+          </label>
+          <input type="email" id="email" name="email" >
+        </div>
+      
+        <div class="form-group">
+          <label for="password" class="required">Password
+            <i style="font-size:10px" class="fa">&#xf069;</i>
+          </label>
+          <input type="password" id="password" name="password" >
+        </div>
+      
+        <p id="error-message" style="color: red; display: none;"></p>
+      
+        <button type="submit" id="login-button">Log In</button>
+      
+        <p>Don't have an account? <a href="#">Sign Up</a></p>
+        <p>Forgot your password? <a href="#">Reset Password</a></p>
+      </form>
+      
 
 </dialog>
 <!-- Signup dialog  -->
@@ -565,39 +543,35 @@
         orders you have previously made.By creating an account 
         you will be able to shop faster, be up to date on an 
         order's status, and keep track of the orders you have previously made.</p>
-    <form action="/submit-signup" method="post">
-      <div class="form-group">
-        <label for="fullname" class="required">Full Name<i style="font-size:10px"class="fa">&#xf069;</i></label>
+        
+        <form id="signup-form">
+            <div class="form-group">
+              <label for="fullname">Full Name</label>
+              <input type="text" id="fullname" name="fullname">
+            </div>
+        
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="signup-email" name="email" />
 
-        <input type="text" id="fullname" name="fullname" required>
-      </div>
+            </div>
+        
+            <div class="form-group">
+              <label for="signup-password">Password</label>
+              <input type="password" id="signup-password" name="password">
 
-      <div class="form-group">
-        <label for="fullname"class="required">Last Name<i style="font-size:10px"class="fa">&#xf069;</i></label>
-        <input type="text" id="lastname" name="lastname" required>
-      </div>
-
-
-
-      <div class="form-group">
-        <label for="email"class="required">Email Address<i style="font-size:10px"class="fa">&#xf069;</i></label>
-        <input type="email" id="email" name="email" required>
-      </div>
-
-      <div class="form-group">
-        <label for="password"class="required">Password<i style="font-size:10px"class="fa">&#xf069;</i></label>
-        <input type="password" id="password" name="password" required>
-      </div>
-
-      <div class="form-group">
-        <label for="password"class="required">Re-Password<i style="font-size:10px"class="fa">&#xf069;</i></label>
-        <input type="password" id="password" name="re-password" required>
-      </div>
-
-      <input type="submit" value="Sign Up">
-
-      <p>Already have an account? <a href="login.html">Login</a></p>
-    </form>
+            </div>
+        
+            <div class="form-group">
+              <label for="confirm-password">Re-Password</label>
+              <input type="password" id="confirm-password" name="re-password">
+            </div>
+        
+            <button>Register</button>
+        
+            <p>Already have an account? <a href="login.html">Login</a></p>
+          </form>
+          
 </dialog>
 
 

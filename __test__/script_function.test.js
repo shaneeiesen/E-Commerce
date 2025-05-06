@@ -9,7 +9,184 @@ import {
   addToWishListFn,
   removeByWishListIdFn,
   removeByProductIdWishlistFn,
+  users,
+  registerPeople,
+  validateName,
+  validateEmail,
+  validatePassword,
+  validateConfirmPassword,
+  loginUser,
 } from "../js/script_function.js";
+
+
+//login
+// Mock localStorage
+global.localStorage = {
+  store: {},
+  getItem(key) {
+    return this.store[key] || null;
+  },
+  setItem(key, value) {
+    this.store[key] = String(value);
+  },
+  removeItem(key) {
+    delete this.store[key];
+  },
+  clear() {
+    this.store = {};
+  }
+};
+
+beforeEach(() => {
+  localStorage.clear();
+});
+
+describe('loginUser', () => {
+  test('should log in successfully with correct credentials', () => {
+    const testUser = { email: 'tshabi@gmail.com', password: 'password123' };
+    localStorage.setItem('users', JSON.stringify([testUser]));
+
+    const loggedInUser = loginUser('tshabi@gmail.com', 'password123');
+    expect(loggedInUser).toEqual(testUser);
+  });
+
+  test('should throw error if email is incorrect', () => {
+    const testUser = { email: 'tshabi@gmail.com', password: 'password123' };
+    localStorage.setItem('users', JSON.stringify([testUser]));
+
+    expect(() => {
+      loginUser('wrong@example.com', 'password123');
+    }).toThrow('Email not found.');
+  });
+
+  test('should throw error if password is incorrect', () => {
+    const testUser = { email: 'tshabi@gmail.com', password: 'password123' };
+    localStorage.setItem('users', JSON.stringify([testUser]));
+
+    expect(() => {
+      loginUser('tshabi@gmail.com', 'wrongpassword');
+    }).toThrow('');
+  });
+
+
+  test('should throw if email is empty', () => {
+    expect(() => loginUser('')).toThrow('Invalid email');
+  });
+
+  test('should throw if email is only spaces', () => {
+    expect(() => loginUser('   ')).toThrow('Invalid email');
+  });
+
+  test('should throw error if no user is registered', () => {
+    expect(() => {
+      loginUser('tshabi@gmail.com', 'password123');
+    }).toThrow('No users registered.');
+  });
+});
+
+
+
+//Sign Up Tests
+
+beforeEach(() => {
+  users.length = 0;
+});
+
+
+// [users]
+describe('[users]', () => {
+  test('should be defined', () => {
+    expect(users).toBeDefined();
+  });
+
+  test('should be an array', () => {
+    expect(Array.isArray(users)).toBe(true);
+  });
+});
+
+
+// [Name]
+describe('[validateName]', () => {
+  test('should be a function', () => {
+    expect(typeof validateName).toBe('function');
+  });
+
+  test('should throw if name is empty', () => {
+    expect(() => validateName('')).toThrow('Invalid name');
+  });
+
+  test('should throw if name is only spaces', () => {
+    expect(() => validateName('   ')).toThrow('Invalid name');
+  });
+
+  test('should throw if name is not a string', () => {
+    expect(() => validateName(123)).toThrow('Invalid name');
+  });
+
+  test('should throw if name contains special characters', () => {
+    expect(() => validateName('John@123')).toThrow('Invalid name');
+  });
+});
+
+
+// [Email]
+describe('[validateEmail]', () => {
+  test('should be a function', () => {
+    expect(typeof validateEmail).toBe('function');
+  });
+
+  test('should throw if email is empty', () => {
+    expect(() => validateEmail('')).toThrow('Invalid email');
+  });
+
+  test('should throw if email is not a string', () => {
+    expect(() => validateEmail(123)).toThrow('Invalid email');
+  });
+
+  test('should throw if email does not contain "@"', () => {
+    expect(() => validateEmail('aliceexample.com')).toThrow('Invalid email');
+  });
+});
+
+
+// [Password]
+describe('[validatePassword]', () => {
+  test('should be a function', () => {
+    expect(typeof validatePassword).toBe('function');
+  });
+
+  test('should throw if password is empty', () => {
+    expect(() => validatePassword('')).toThrow('');
+  });
+
+  test('should throw if password is too short', () => {
+    expect(() => validatePassword('123')).toThrow('');
+  });
+
+  test('should throw if password is not a string', () => {
+    expect(() => validatePassword(123456)).toThrow('Invalid password');
+  });
+});
+
+
+// [ConfirmPassword]
+describe('[validateConfirmPassword]', () => {
+  test('should be a function', () => {
+    expect(typeof validateConfirmPassword).toBe('function');
+  });
+
+  test('should throw if confirm password is empty', () => {
+    expect(() => validateConfirmPassword('pass123', '')).toThrow('Password confirmation required');
+  });
+
+  test('should throw if passwords do not match', () => {
+    expect(() => validateConfirmPassword('pass123', 'diff123')).toThrow('Passwords do not match');
+  });
+});
+
+
+//login
+
 
 //fetch Tests
 
@@ -192,6 +369,7 @@ describe("[increaseProductCounterFn]", () => {
     expect(() => increaseProductCounterFn(productCartId)).toThrow();
   });
 });
+
 
 //adding to wishlist
 describe("[addToWishListFn]", () => {

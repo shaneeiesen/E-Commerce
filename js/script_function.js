@@ -3,9 +3,10 @@ let cartId = 0;
 let products1 = [];
 let wishList = [];
 let wishListId = 0;
+const users = [];
 
 async function fetchProductsFn() {
-  const setProducts = await fetch("https://dummyjson.com/products");
+  const setProducts = await fetch("https://dummyjson.com/products ");
 
   const data = await setProducts.json();
 
@@ -192,6 +193,98 @@ function removeByProductIdWishlistFn(product_id) {
 }
 
 
+// Using signnup
+function validateName(name) {
+  
+  if (
+    !name ||
+    typeof name !== 'string' ||
+    name.trim() === '' ||
+    /[^a-zA-Z\s]/.test(name)
+  ) {
+    throw new Error('Invalid name');
+  }
+
+}
+
+function validateEmail(email) {
+  if (!email || typeof email !== 'string') {
+    throw new Error('Invalid email');
+  }
+
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!regex.test(email.trim())) {
+    throw new Error('Invalid email');
+  }
+}
+
+
+function validatePassword(password) {
+  if (!password || typeof password !== 'string') {
+    throw new Error('Invalid password');
+  }
+
+  if(password.length < 6){
+    throw new Error("Enter at least 7 characters")
+  }
+}
+
+
+function validateConfirmPassword(password, confirmPassword) {
+  if (!confirmPassword) {
+    throw new Error('Password confirmation required');
+  }
+
+  if (password !== confirmPassword) {
+    throw new Error('Passwords do not match');
+  }
+}
+
+
+function registerPeople(name, email, password, confirmPassword) {
+  try {
+    validateName(name);
+    validateEmail(email);
+    validatePassword(password);
+    validateConfirmPassword(password, confirmPassword);
+
+    const user = { name, email, registered: true };
+    users.push(user);
+    return users;
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+//login
+export function loginUser(email, password) {
+  const users = JSON.parse(localStorage.getItem('users')) || [];
+  if (!email || email.trim() === '') {
+    throw new Error('Invalid email');
+  }
+
+  if (!password || password.trim() === '') {
+    throw new Error('please enter the correct  password');
+  }
+
+  
+
+  if (users.length === 0) {
+    throw new Error('No users registered.');
+  }
+
+  const user = users.find(u => u.email === email);
+  if (!user) {
+    throw new Error('Email not found.');
+  }
+
+  if (user.password !== password) {
+    throw new Error('Incorrect password.');
+  }
+
+  return user;
+}
+
 export {
   cart,
   addToCartFn,
@@ -206,4 +299,10 @@ export {
   addToWishListFn,
   removeByWishListIdFn,
   removeByProductIdWishlistFn,
+  users,
+  registerPeople,
+  validateName,
+  validateEmail,
+  validatePassword,
+  validateConfirmPassword,
 };
