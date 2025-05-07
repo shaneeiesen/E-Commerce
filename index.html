@@ -18,19 +18,20 @@
 
 
     <script type="module" src="./script.js" defer></script>
+
 </head>
 
 <body>
 
     <nav>
         <div class="logo">
-            <img src="/images/websiteLogo1.jpg"
-                alt="">
-                <h1>OrganicFoods</h1>
+            <img src="/images/websiteLogo1.jpg" alt="">
+            <h1>Harmony House</h1>
+            <!-- <h2>Curated for a Greener Home</h2> -->
         </div>
 
         <div class="right">
-            
+
             <div>
                 <i class="bi bi-search"></i>
             </div>
@@ -55,11 +56,17 @@
         </div>
     </nav>
 
-<!-- CARA -->
+    <!-- CARA -->
 
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="item active">
+                <img src="https://sdmntprwestus.oaiusercontent.com/files/00000000-e7b8-6230-a73f-5a820fe82479/raw?se=2025-05-07T13%3A41%3A56Z&sp=r&sv=2024-08-04&sr=b&scid=2982e8f7-2b17-54a5-bd94-4d7be0287094&skoid=b53ae837-f585-4db7-b46f-2d0322fce5a9&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-07T02%3A26%3A52Z&ske=2025-05-08T02%3A26%3A52Z&sks=b&skv=2024-08-04&sig=vrKVeptiCRw1K0haIT2pqRaS/o8Qf8sgRUh%2Bsx1nH1Q%3D" alt="Image 1" />
+            </div>
+        </div>
+    </div>
 
-
-<!-- end -->
+    <!-- end -->
 
     <main id="product-container">
         <!-- <div class="product">
@@ -377,12 +384,12 @@
     </dialog>
 
 
-<dialog id="cartDialog">
-    
-    <button id="cartButton">Close</button>
+    <dialog id="cartDialog">
+
+        <button id="cartButton">Close</button>
         <h1>Cart</h1>
 
-    
+
         <!-- <h1>Cart</h1>
         <div class="cart">
 
@@ -441,25 +448,25 @@
       
              
         </div> -->
-      
+
         <!-- <div class="btn-cartcheckout">
               
               <div class="total-price">Total Price : R 35.99</div>
               <button class="btn-checkout">Checkout</button>
             
         </div> -->
-                      
-                    
-</dialog>
 
-<!--  -->
 
-<dialog id="favDialog">
-    <button id="heartButton" type="button">Close</button>
+    </dialog>
 
-    <h1>Wishlist</h1>
+    <!--  -->
 
-    <!-- <div class="fav">
+    <dialog id="favDialog">
+        <button id="heartButton" type="button">Close</button>
+
+        <h1>Wishlist</h1>
+
+        <!-- <div class="fav">
 
       <div>
         <img
@@ -500,104 +507,102 @@
         </div>
       </div>
     </div> -->
-  </dialog>
+    </dialog>
 
-<!-- LOGIN DIALOG -->
-<dialog id="loginDialog">
-    <button id="closeLogin" type="button">Close</button>
-    <h2>Login</h2>
-    <h3>Welcome back!</h3>
-    <p></p>
-    <form id="signin-form">
-        <div class="form-group">
-          <label for="email" class="required">Email Address
-            <i style="font-size:10px" class="fa">&#xf069;</i>
-          </label>
-          <input type="email" id="email" name="email" >
-        </div>
-      
-        <div class="form-group">
-          <label for="password" class="required">Password
-            <i style="font-size:10px" class="fa">&#xf069;</i>
-          </label>
-          <input type="password" id="password" name="password" >
-        </div>
-      
-        <p id="error-message" style="color: red; display: none;"></p>
-      
-        <button type="submit" id="login-button">Log In</button>
-      
-        <p>Don't have an account? <a href="#">Sign Up</a></p>
-        <p>Forgot your password? <a href="#">Reset Password</a></p>
-      </form>
-      
+    <!-- LOGIN DIALOG -->
+    <dialog id="loginDialog">
+        <button id="closeLogin" type="button">Close</button>
+        <h2>Login</h2>
+        <h3>Welcome back!</h3>
+        <p></p>
+        <form id="signin-form">
+            <div class="form-group">
+                <label for="email" class="required">Email Address
+                    <i style="font-size:10px" class="fa">&#xf069;</i>
+                </label>
+                <input type="email" id="email" name="email">
+            </div>
 
-</dialog>
-<!-- Signup dialog  -->
-<dialog id="signupDialog">
-    <button id="closeSignup" type="button">Close</button>
-    <h2>Create an Account</h2>
-    <h3>New Customer</h3>
-    <p>By creating an account you will be able to shop faster, 
-        be up to date on an order's status, and keep track of the 
-        orders you have previously made.By creating an account 
-        you will be able to shop faster, be up to date on an 
-        order's status, and keep track of the orders you have previously made.</p>
-        
+            <div class="form-group">
+                <label for="password" class="required">Password
+                    <i style="font-size:10px" class="fa">&#xf069;</i>
+                </label>
+                <input type="password" id="password" name="password">
+            </div>
+
+            <p id="error-message" style="color: red; display: none;"></p>
+
+            <button type="submit" id="login-button">Log In</button>
+
+            <p>Don't have an account? <a href="#">Sign Up</a></p>
+            <p>Forgot your password? <a href="#">Reset Password</a></p>
+        </form>
+
+
+    </dialog>
+    <!-- Signup dialog  -->
+    <dialog id="signupDialog">
+        <button id="closeSignup" type="button">Close</button>
+        <h2>Create an Account</h2>
+        <h3>New Customer</h3>
+        <p>By creating an account you will be able to shop faster,
+            be up to date on an order's status, and keep track of the
+            orders you have previously made.By creating an account
+            you will be able to shop faster, be up to date on an
+            order's status, and keep track of the orders you have previously made.</p>
+
         <form id="signup-form">
             <div class="form-group">
-              <label for="fullname">Full Name</label>
-              <input type="text" id="fullname" name="fullname">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname">
             </div>
-        
+
             <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="signup-email" name="email" />
+                <label for="email">Email Address</label>
+                <input type="email" id="signup-email" name="email" />
 
             </div>
-        
+
             <div class="form-group">
-              <label for="signup-password">Password</label>
-              <input type="password" id="signup-password" name="password">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" name="password">
 
             </div>
-        
+
             <div class="form-group">
-              <label for="confirm-password">Re-Password</label>
-              <input type="password" id="confirm-password" name="re-password">
+                <label for="confirm-password">Re-Password</label>
+                <input type="password" id="confirm-password" name="re-password">
             </div>
-        
+
             <button>Register</button>
-        
+
             <p>Already have an account? <a href="login.html">Login</a></p>
-          </form>
-          
-</dialog>
+        </form>
+
+    </dialog>
 
 
-        <footer>
-            <div class="footer-links">
-                <div>Products</div>
-                <div>Resources</div>
-                <div>Resource</div>
-                <div>Support</div>
-            </div>
-    
-            <hr/>
-    
-            <div class="icons">
-                <div><i class="bi bi-twitter"></i></div>
-                <div><i class="bi bi-facebook"></i></div>
-                <div><i class="bi bi-instagram"></i></div>
-                <div><i class="bi bi-youtube"></i></div>
-            </div>
-    
-            <div>
-                <p>@pagedone at 2025, All rights reserved</p>
-            </div>
-        </footer>
+    <footer>
+        <div class="footer-links">
+            <div>Products</div>
+            <div>Resources</div>
+            <div>Resource</div>
+            <div>Support</div>
+        </div>
 
+        <hr />
 
+        <div class="icons">
+            <div><i class="bi bi-twitter"></i></div>
+            <div><i class="bi bi-facebook"></i></div>
+            <div><i class="bi bi-instagram"></i></div>
+            <div><i class="bi bi-youtube"></i></div>
+        </div>
+
+        <div>
+            <p>@pagedone at 2025, All rights reserved</p>
+        </div>
+    </footer>
 </body>
 
 </html>
