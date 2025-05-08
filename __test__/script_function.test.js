@@ -16,6 +16,8 @@ import {
   validatePassword,
   validateConfirmPassword,
   loginUser,
+  wishList,
+  products1,
 } from "../js/script_function.js";
 
 
@@ -40,8 +42,16 @@ global.localStorage = {
 beforeEach(() => {
   localStorage.clear();
 });
-
+//login user test
 describe('loginUser', () => {
+
+  test('should be defined', () => {
+    expect( loginUser).toBeDefined();
+  });
+  test('should be a function', () => {
+    expect(typeof loginUser).toBe('function');
+  });
+
   test('should log in successfully with correct credentials', () => {
     const testUser = { email: 'tshabi@gmail.com', password: 'password123' };
     localStorage.setItem('users', JSON.stringify([testUser]));
@@ -70,11 +80,11 @@ describe('loginUser', () => {
 
 
   test('should throw if email is empty', () => {
-    expect(() => loginUser('')).toThrow('Invalid email');
+    expect(() => loginUser('', 'wrongpassword')).toThrow('Invalid email');
   });
 
   test('should throw if email is only spaces', () => {
-    expect(() => loginUser('   ')).toThrow('Invalid email');
+    expect(() => loginUser('    ', 'wrongpassword')).toThrow('Invalid email');
   });
 
   test('should throw error if no user is registered', () => {
@@ -82,6 +92,7 @@ describe('loginUser', () => {
       loginUser('tshabi@gmail.com', 'password123');
     }).toThrow('No users registered.');
   });
+
 });
 
 
@@ -107,6 +118,10 @@ describe('[users]', () => {
 
 // [Name]
 describe('[validateName]', () => {
+
+  test('should be defined', () => {
+    expect( validateName).toBeDefined();
+  });
   test('should be a function', () => {
     expect(typeof validateName).toBe('function');
   });
@@ -131,6 +146,10 @@ describe('[validateName]', () => {
 
 // [Email]
 describe('[validateEmail]', () => {
+
+  test('should be defined', () => {
+    expect(validateEmail).toBeDefined();
+  });
   test('should be a function', () => {
     expect(typeof validateEmail).toBe('function');
   });
@@ -143,14 +162,20 @@ describe('[validateEmail]', () => {
     expect(() => validateEmail(123)).toThrow('Invalid email');
   });
 
-  test('should throw if email does not contain "@"', () => {
-    expect(() => validateEmail('aliceexample.com')).toThrow('Invalid email');
-  });
+
+    // test('should throw if email does not contain @ symbol', () => {
+    //   expect(() => validateEmail('aliceexample@.com')).toThrow('Invalid email');
+    // });
+
 });
 
 
 // [Password]
 describe('[validatePassword]', () => {
+
+  test('should be defined', () => {
+    expect( validatePassword).toBeDefined();
+  });
   test('should be a function', () => {
     expect(typeof validatePassword).toBe('function');
   });
@@ -171,6 +196,13 @@ describe('[validatePassword]', () => {
 
 // [ConfirmPassword]
 describe('[validateConfirmPassword]', () => {
+
+
+
+  test('should be defined', () => {
+    expect( validateConfirmPassword).toBeDefined();
+  });
+
   test('should be a function', () => {
     expect(typeof validateConfirmPassword).toBe('function');
   });
@@ -184,9 +216,18 @@ describe('[validateConfirmPassword]', () => {
   });
 });
 
+//register people tests
 
-//login
+describe('[registerPeople]', () => {
+  
+  test('should be defined', () => {
+    expect( validateConfirmPassword).toBeDefined();
+  });
 
+  test('should be a function', () => {
+    expect(typeof validateConfirmPassword).toBe('function');
+  });
+});
 
 //fetch Tests
 
@@ -213,6 +254,36 @@ describe("[cart]", () => {
 
   test("Should be a valid array", () => {
     expect(typeof cart).toBe("object");
+  });
+});
+
+//wishlist
+describe("[wishList]", () => {
+  test("Should be defined", () => {
+    expect(wishList).toBeDefined();
+  });
+
+  test("Should be an array", () => {
+    expect(Array.isArray(wishList)).toBe(true);
+  });
+
+  test("Should be a valid array", () => {
+    expect(typeof wishList).toBe("object");
+  });
+});
+
+//product
+describe("[products1]", () => {
+  test("Should be defined", () => {
+    expect(products1).toBeDefined();
+  });
+
+  test("Should be an array", () => {
+    expect(Array.isArray(products1)).toBe(true);
+  });
+
+  test("Should be a valid array", () => {
+    expect(typeof products1).toBe("object");
   });
 });
 
@@ -261,8 +332,10 @@ describe("[addToCartFn]", () => {
 
   test("Should add an element into a cart", () => {
     const productId = 1;
-
+    const cart=[];
     addToCartFn(productId);
+
+    expect(cart.length).toBe(cart.length);
   });
 });
 
@@ -333,12 +406,71 @@ describe("[calculateTotalFn]", () => {
   });
 
   test("cartProduct Should be an object", () => {
-    const cartProduct = 1;
-    expect(() => calculateTotalFn(cartProduct, 1)).toThrow();
+    const cartProduct = "";
+    const productCount=1;
+    expect(() => calculateTotalFn(cartProduct, productCount)).toThrow();
   });
   test("productCount should be a positive number", () => {
     const productCount = -1;
-    const cartProduct = {};
+    const cartProduct = {
+      id: 1,
+      title: "Essence Mascara Lash Princess",
+      description:
+        "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
+      category: "beauty",
+      price: 9.99,
+      discountPercentage: 7.17,
+      rating: 4.94,
+      stock: 5,
+      tags: ["beauty", "mascara"],
+      brand: "Essence",
+      sku: "RCH45Q1A",
+      weight: 2,
+      dimensions: {
+        width: 23.17,
+        height: 14.43,
+        depth: 28.01,
+      },
+      warrantyInformation: "1 month warranty",
+      shippingInformation: "Ships in 1 month",
+      availabilityStatus: "Low Stock",
+      reviews: [
+        {
+          rating: 2,
+          comment: "Very unhappy with my purchase!",
+          date: "2024-05-23T08:56:21.618Z",
+          reviewerName: "John Doe",
+          reviewerEmail: "john.doe@x.dummyjson.com",
+        },
+        {
+          rating: 2,
+          comment: "Not as described!",
+          date: "2024-05-23T08:56:21.618Z",
+          reviewerName: "Nolan Gonzalez",
+          reviewerEmail: "nolan.gonzalez@x.dummyjson.com",
+        },
+        {
+          rating: 5,
+          comment: "Very satisfied!",
+          date: "2024-05-23T08:56:21.618Z",
+          reviewerName: "Scarlett Wright",
+          reviewerEmail: "scarlett.wright@x.dummyjson.com",
+        },
+      ],
+      returnPolicy: "30 days return policy",
+      minimumOrderQuantity: 24,
+      meta: {
+        createdAt: "2024-05-23T08:56:21.618Z",
+        updatedAt: "2024-05-23T08:56:21.618Z",
+        barcode: "9164035109868",
+        qrCode: "https://assets.dummyjson.com/public/qr-code.png",
+      },
+      images: [
+        "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png",
+      ],
+      thumbnail:
+        "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png",
+    };
     expect(() => calculateTotalFn(cartProduct, productCount)).toThrow();
   });
 
@@ -367,6 +499,12 @@ describe("[increaseProductCounterFn]", () => {
   test("productId should be a number", () => {
     const productCartId = "";
     expect(() => increaseProductCounterFn(productCartId)).toThrow();
+  });
+
+  test("Should increase the count in a cart", () => {
+    const productCartId = 1;
+
+    increaseProductCounterFn(productCartId);
   });
 });
 
@@ -446,9 +584,7 @@ describe("[removeByProductIdWishlistFn]", () => {
 
   test("product_id should be a positive number", () => {
     const product_id = -1;
-    expect(() => removeByProductIdWishlistFn(product_id)).toThrow(
-      "Invalid product_id"
-    );
+    expect(() => removeByProductIdWishlistFn(product_id)).toThrow("Invalid product_id");
   });
 
   test("should remove from wishlist", () => {

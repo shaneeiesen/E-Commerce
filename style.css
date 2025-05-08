@@ -5,17 +5,14 @@
     border: 1rem;
 } */
 
-
+@import url("https://fonts.googleapis.com/css?family=Lora:400,400i,700");
 
 :root {
   --primary50: rgb(0, 166, 255);
   --primary100: rgb(0, 110, 255);
   --primary150: rgb(3, 86, 196);
-  --green5: rgb(245, 250, 245);
-  --green50: rgb(18, 228, 85);
   --green100: rgb(0, 125, 40);
   --green150: rgb(0, 95, 30);
-  --green200: rgb(2, 54, 18);
   --gray50: whitesmoke;
   --gray100: rgb(169, 169, 169);
   --gray150: rgb(66, 66, 66);
@@ -155,43 +152,38 @@ nav .right .favCount span {
   display: none;
 }
 
-/* edits made */
 nav .right a {
   color: var(--gray50);
   font-size: 1.2rem;
   transition: var(--transition-sm);
 }
 
-/* edits made */
 nav .right a:hover {
   color: var(--white);
   font-weight: bolder;
 }
 
-/* edits made */
 nav .right i {
-  color: var(--green200);
+  color: var(--green150);
   font-size: 1.5rem;
   cursor: pointer;
   transition: var(--transition-sm);
 }
 
-/* edits made */
 nav .right i:hover {
-  color: var(--green50);
-  font-size: 2rem;
+  color: var(--green100);
+  font-size: 1.8rem;
 }
 
-/* edits made */
 nav .right #login {
-  background-color: rgb(2, 54, 18);
+  background-color: rgb(93, 201, 93);
   padding: .5rem;
   border-radius: 50px 50px;
 }
 
-/* edits made */
 nav .right #signup {
-  background-color: var(--green200);
+
+  background-color: var(--green100);
   padding: .5rem;
   border-radius: 50px 50px;
 }
@@ -205,10 +197,9 @@ main {
 }
 
 /* PRODUCT ****************************/
-/* edits made */
 .product {
   height: 30rem;
-  background: var(--green5);
+  background: var(--white);
   transition: var(--transition-sm);
   border-radius: 0.5rem;
   position: relative;
@@ -267,13 +258,12 @@ main {
   cursor: pointer;
 }
 
-/* edits made */
 .product .discount {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 2;
-  background: var(--green200);
+  background: var(--red);
   color: var(--gray50);
   padding: var(--space-xm);
   border-radius: var(--space-xm) 0 var(--space-xm) 0;
@@ -346,62 +336,6 @@ dialog {
 }
 
 
-/* New Caresoul */
-
-.carousel-container {
-  height: 40rem;
-  margin-top: 4;
-  padding-top: 4;
-  width: 100%; /* Full viewport width */
-  max-width: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: var(--lx-gap);
-
-  .carousel {
-    aspect-ratio: 16/9;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-
-    .item {      
-      opacity: 0;
-      width: 100%;
-      height: 100%;
-      display: none;
-      transition: opacity 0.5s ease-in-out;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top;
-      }
-
-      .caption {
-        width: 100%;
-        padding: var(--lx-space-01);
-        position: absolute;
-        bottom: 0;
-        text-transform: uppercase;
-        text-align: center;
-        font-size: 12px;
-        background-color: rgba(0, 0, 0, 0.5);
-      }
-
-      &.active {
-        opacity: 1;
-        display: block;
-      }
-    }
-  }
-}
-
-/* Caresoul Close */
-
-
-/* Footer */
 footer {
   background-color: var(--green150);
   /* background-color: lightslategray; */
@@ -694,4 +628,24 @@ footer p {
   flex-direction: column;
   gap: 10px;
 }
+
+
+
+/* category filter */
+
+.category-filter {
+  margin: 20px 0;
+  text-align: right;
+  margin-right: 2rem;
+}
+
+#category-select {
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+
+/* new carousel */
+
 

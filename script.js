@@ -57,6 +57,7 @@ const loginBtn = document.getElementById("login");
 const viewLogin = document.getElementById("loginDialog");
 const closeLogin = document.getElementById("closeLogin");
 
+
 const registerBtn = document.getElementById("signup");
 const viewRegister = document.getElementById("signupDialog");
 const closeRegister = document.getElementById("closeSignup");
@@ -70,28 +71,28 @@ const prevSlideBtn = document.getElementById("prevSlide");
 const nextSlideBtn = document.getElementById("nextSlide");
 
 //login
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('signin-form');
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
+
+
+document.getElementById('signin-form').addEventListener("submit", function (e) {
+  e.preventDefault();
+
  
+  const emailInput=document.getElementById('email');
+  const passwordInput =document.getElementById('password');
 
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const email = emailInput.value;
-    const password = passwordInput.value;
-
+  const email = emailInput.value ;
+    const password= passwordInput.value;
     try {
-      const loggedInUser = loginUser(email, password);
-      alert(`You have logged in successfully as ${loggedInUser.name}!`);
-
-    } catch (err) {
+      const loggedInUser= loginUser(email,password);
+      if (loggedInUser) {
+        alert(`You have logged in successfully as ${loggedInUser.name}!`);
+        document.getElementById('signin-form').reset();
+      }
       
-      alert(err.message);
+    } catch (error) {
+      alert(error.message)
     }
-  
-  });
+
 });
 //
 
@@ -117,22 +118,33 @@ document.getElementById("signup-form").addEventListener("submit", function (e) {
     registerPeople(name, email, password, confirmPassword);
 
     let existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+    let emailExists = existingUsers.some(user => user.email === email);
+    let  newUser;
+    if (emailExists) {
+      alert("Email already exists");
+    } else {
+      // Create new user object
+       newUser = {
+        name: name,
+        email: email,
+        password: password
+      };
+      existingUsers.push(newUser);
+    
+      localStorage.setItem("users", JSON.stringify(existingUsers));
+      document.getElementById("signup-form").reset();
+      alert("Registration successful!");
+    }
+       
+    
+    
 
-    const newUser = {
-      name: name,
-      email: email,
-      password: password,
-    };
-
-    existingUsers.push(newUser);
-
-    localStorage.setItem("users", JSON.stringify(existingUsers));
-    document.getElementById("signup-form").reset();
-    alert("Registration successful!");
   } catch (err) {
     alert(err.message);
   }
 });
+
+
 
 //Product container
 
@@ -181,7 +193,7 @@ function displayProducts(products) {
 
       if (product) {
         addToCartFn(product.id);
-
+        localStorage.setItem('cart', JSON.stringify(cart));
         AddToCartRender();
       }
     });
@@ -277,8 +289,37 @@ function displayProducts(products) {
 }
 displayProducts(products1);
 
+// Populate the category dropdown
+function populateCategoryFilter(products) {
+  const select = document.getElementById("category-select");
+  const uniqueCategories = [...new Set(products.map(p => p.category))];
+
+  uniqueCategories.forEach(category => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    select.appendChild(option);
+  });
+}
+
+// Filter products based on category selection
+document.getElementById("category-select").addEventListener("change", (e) => {
+  const selectedCategory = e.target.value;
+  const filtered = selectedCategory
+    ? products1.filter(product => product.category === selectedCategory)
+    : products1;
+
+  // Clear and redisplay products
+  container.innerHTML = "";
+  displayProducts(filtered);
+});
+
+// Populate dropdown on load
+populateCategoryFilter(products1);
+
 let cartContainer = document.getElementById("cartDialog");
 let total = 0;
+let StorageCartList=[];
 //Adding to cart HTML
 function AddToCartRender() {
   total = 0;
@@ -287,6 +328,9 @@ function AddToCartRender() {
   <button id="cartButton">Close</button>
         <h1>Cart</h1>`;
 
+  
+
+   
   for (let i = 0; i < cart.length; i++) {
     const cartItem = cart[i];
     const cartProduct = cartItem.product;
@@ -424,8 +468,20 @@ function AddToCartRender() {
       }
     });
   });
+
+  const checkoutbtn = document.querySelectorAll(".btn-checkout");
+  checkoutbtn.forEach((btn) => {
+
+    btn.addEventListener("click", () => {
+      viewLogin.showModal();
+      
+    });
+  });
+
 }
 
+
+//adding to wishlist
 let wishListContainer = document.getElementById("favDialog");
 
 function AddToWishListRender() {
@@ -515,65 +571,10 @@ function AddToWishListRender() {
   });
 }
 
+
+
+
 ////////////////
-
-// New Caresoul
-
-document.addEventListener("DOMContentLoaded", function () {
-  let carousel = document.querySelector(".carousel");
-  let items = carousel.querySelectorAll(".item");
-  let dotsContainer = document.querySelector(".dots");
-
-  // Insert dots into the DOM
-  items.forEach((_, index) => {
-    let dot = document.createElement("span");
-    dot.classList.add("dot");
-    if (index === 0) dot.classList.add("active");
-    dot.dataset.index = index;
-    dotsContainer.appendChild(dot);
-  });
-
-  let dots = document.querySelectorAll(".dot");
-
-  // Function to show a specific item
-  function showItem(index) {
-    items.forEach((item, idx) => {
-      item.classList.remove("active");
-      dots[idx].classList.remove("active");
-      if (idx === index) {
-        item.classList.add("active");
-        dots[idx].classList.add("active");
-      }
-    });
-  }
-
-
-
-  // Event listeners for buttons
-  document.querySelector(".prev").addEventListener("click", () => {
-    let index = [...items].findIndex((item) =>
-      item.classList.contains("active")
-    );
-    showItem((index - 1 + items.length) % items.length);
-  });
-
-  document.querySelector(".next").addEventListener("click", () => {
-    let index = [...items].findIndex((item) =>
-      item.classList.contains("active")
-    );
-    showItem((index + 1) % items.length);
-  });
-
-  // Event listeners for dots
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
-      let index = parseInt(dot.dataset.index);
-      showItem(index);
-    });
-  });
-});
-
-// Caresoul Close
 
 // console.log({ groceries });
 /////////
@@ -636,6 +637,7 @@ closeRegister.addEventListener("click", () => {
 });
 
 //new carousel
+
 
 
 
