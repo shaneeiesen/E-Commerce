@@ -24,15 +24,14 @@
 
     <nav>
         <div class="logo">
-            <img src="/images/websiteLogo1.jpg"
-                alt="">
-                <h1>Harmony House</h1>
+            <img src="/images/websiteLogo1.jpg" alt="">
+            <h1>Harmony House</h1>
         </div>
 
         <div class="right">
-            
+
             <div class="search-container">
-                
+
                 <i class="bi bi-search"></i>
             </div>
 
@@ -56,24 +55,24 @@
         </div>
     </nav>
 
-   
-<!-- CARA -->
-<main class="carousel-container">
-    <div class="carousel">
-      <div class="item active">
-        <img src="/images/Harmony House_ Organic and Timeless Design 2.png"" alt="Image 1" />
-      </div>
-  </main>
-<!-- end -->
 
-<!-- Filter -->
-<div class="category-filter">
-    <label for="category-select">Filter by Category:</label>
-    <select id="category-select">
-      <option value="">All Categories</option>
-    </select>
-  </div>
-<!-- end -->
+    <!-- CARA -->
+    <main class="carousel-container">
+        <div class="carousel">
+            <div class="item active">
+                <img src="/images/Harmony House_ Organic and Timeless Design 2.png"" alt=" Image 1" />
+            </div>
+    </main>
+    <!-- end -->
+
+    <!-- Filter -->
+    <div class="category-filter">
+        <label for="category-select">Filter by Category:</label>
+        <select id="category-select">
+            <option value="">All Categories</option>
+        </select>
+    </div>
+    <!-- end -->
 
     <main id="product-container">
         <!-- <div class="product">
@@ -336,7 +335,9 @@
 
 
     <dialog id="viewProductDialog">
-        <button class="dec-btn" id="btn-decclose">Close</button>
+        <div class="dec-btn">
+            <button class="dec-btnn" id="btn-decclose">Close</button>
+        </div>
 
         <div class="viewProductDiv">
 
@@ -391,12 +392,12 @@
     </dialog>
 
 
-<dialog id="cartDialog">
-    
-    <button id="cartButton">Close</button>
+    <dialog id="cartDialog">
+
+        <button id="cartButton">Close</button>
         <h1>Cart</h1>
 
-    
+
         <!-- <h1>Cart</h1>
         <div class="cart">
 
@@ -455,25 +456,25 @@
       
              
         </div> -->
-      
+
         <!-- <div class="btn-cartcheckout">
               
               <div class="total-price">Total Price : R 35.99</div>
               <button class="btn-checkout">Checkout</button>
             
         </div> -->
-                      
-                    
-</dialog>
 
-<!--  -->
 
-<dialog id="favDialog">
-    <button id="heartButton" type="button">Close</button>
+    </dialog>
 
-    <h1>Wishlist</h1>
+    <!--  -->
 
-    <!-- <div class="fav">
+    <dialog id="favDialog">
+        <button id="heartButton" type="button">Close</button>
+
+        <h1>Wishlist</h1>
+
+        <!-- <div class="fav">
 
       <div>
         <img
@@ -514,103 +515,103 @@
         </div>
       </div>
     </div> -->
-  </dialog>
+    </dialog>
 
-<!-- LOGIN DIALOG -->
-<dialog id="loginDialog">
-    <button id="closeLogin" type="button">Close</button>
-    <h2>Login</h2>
-    <h3>Welcome back!</h3>
-    <p></p>
-    <form id="signin-form">
-        <div class="form-group">
-          <label for="email" class="required">Email Address
-            <i style="font-size:10px" class="fa">&#xf069;</i>
-          </label>
-          <input type="email" id="email" name="email" >
-        </div>
-      
-        <div class="form-group">
-          <label for="password" class="required">Password
-            <i style="font-size:10px" class="fa">&#xf069;</i>
-          </label>
-          <input type="password" id="password" name="password" >
-        </div>
-      
-        <p id="error-message" style="color: red; display: none;"></p>
-      
-        <button type="submit" id="login-button">Log In</button>
-      
-        <p>Don't have an account? <a href="#">Sign Up</a></p>
-        <p>Forgot your password? <a href="#">Reset Password</a></p>
-      </form>
-      
+    <!-- LOGIN DIALOG -->
+    <dialog id="loginDialog">
+        <button id="closeLogin" type="button">Close</button>
+        <h2>Login</h2>
+        <h3>Welcome back!</h3>
+        <p></p>
+        <form id="signin-form">
+            <div class="form-group">
+                <label for="email" class="required">Email Address
+                    <i style="font-size:10px" class="fa">&#xf069;</i>
+                </label>
+                <input type="email" id="email" name="email">
+            </div>
 
-</dialog>
-<!-- Signup dialog  -->
-<dialog id="signupDialog">
-    <button id="closeSignup" type="button">Close</button>
-    <h2>Create an Account</h2>
-    <h3>New Customer</h3>
-    <p>By creating an account you will be able to shop faster, 
-        be up to date on an order's status, and keep track of the 
-        orders you have previously made.By creating an account 
-        you will be able to shop faster, be up to date on an 
-        order's status, and keep track of the orders you have previously made.</p>
-        
+            <div class="form-group">
+                <label for="password" class="required">Password
+                    <i style="font-size:10px" class="fa">&#xf069;</i>
+                </label>
+                <input type="password" id="password" name="password">
+            </div>
+
+            <p id="error-message" style="color: red; display: none;"></p>
+
+            <button type="submit" id="login-button">Log In</button>
+
+            <p>Don't have an account? <a href="#">Sign Up</a></p>
+            <p>Forgot your password? <a href="#">Reset Password</a></p>
+        </form>
+
+
+    </dialog>
+    <!-- Signup dialog  -->
+    <dialog id="signupDialog">
+        <button id="closeSignup" type="button">Close</button>
+        <h2>Create an Account</h2>
+        <h3>New Customer</h3>
+        <p>By creating an account you will be able to shop faster,
+            be up to date on an order's status, and keep track of the
+            orders you have previously made.By creating an account
+            you will be able to shop faster, be up to date on an
+            order's status, and keep track of the orders you have previously made.</p>
+
         <form id="signup-form">
             <div class="form-group">
-              <label for="fullname">Full Name</label>
-              <input type="text" id="fullname" name="fullname">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname">
             </div>
-        
+
             <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="signup-email" name="email" />
+                <label for="email">Email Address</label>
+                <input type="email" id="signup-email" name="email" />
 
             </div>
-        
+
             <div class="form-group">
-              <label for="signup-password">Password</label>
-              <input type="password" id="signup-password" name="password">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" name="password">
 
             </div>
-        
+
             <div class="form-group">
-              <label for="confirm-password">Re-Password</label>
-              <input type="password" id="confirm-password" name="re-password">
+                <label for="confirm-password">Re-Password</label>
+                <input type="password" id="confirm-password" name="re-password">
             </div>
-        
+
             <button>Register</button>
-        
+
             <p>Already have an account? <a href="login.html">Login</a></p>
-          </form>
-          
-</dialog>
+        </form>
+
+    </dialog>
 
 
 
-        <footer>
-            <div class="footer-links">
-                <div>Products</div>
-                <div>Resources</div>
-                <div>Resource</div>
-                <div>Support</div>
-            </div>
-    
-            <hr/>
-    
-            <div class="icons">
-                <div><i class="bi bi-twitter"></i></div>
-                <div><i class="bi bi-facebook"></i></div>
-                <div><i class="bi bi-instagram"></i></div>
-                <div><i class="bi bi-youtube"></i></div>
-            </div>
-    
-            <div>
-                <p>@pagedone at 2025, All rights reserved</p>
-            </div>
-        </footer>
+    <footer>
+        <div class="footer-links">
+            <div>Products</div>
+            <div>Resources</div>
+            <div>Resource</div>
+            <div>Support</div>
+        </div>
+
+        <hr />
+
+        <div class="icons">
+            <div><i class="bi bi-twitter"></i></div>
+            <div><i class="bi bi-facebook"></i></div>
+            <div><i class="bi bi-instagram"></i></div>
+            <div><i class="bi bi-youtube"></i></div>
+        </div>
+
+        <div>
+            <p>@pagedone at 2025, All rights reserved</p>
+        </div>
+    </footer>
 
 
 </body>
